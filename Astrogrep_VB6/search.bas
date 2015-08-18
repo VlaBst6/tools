@@ -36,7 +36,7 @@ Option Explicit
 Sub LoadRegistrySettings()
 
     On Error GoTo eHandler
-    Dim Path As String, rKey As String
+    Dim path As String, rKey As String
     Dim i As Integer
 
     ENDOFLINEMARKER = GetSetting(appname:="AstroGrep", _
@@ -59,32 +59,32 @@ Sub LoadRegistrySettings()
     For i = 0 To NUM_STORED_PATHS - 1
         rKey = "MRUPath" + Trim(Str(i))
         
-        Path = GetSetting(appname:="AstroGrep", _
+        path = GetSetting(appname:="AstroGrep", _
                 section:="Startup", Key:=rKey, Default:="")
                 
         ' Add the path to the path combobox.
-        If Path <> "" Then
-            frmMain.cboFilePath.AddItem Path
+        If path <> "" Then
+            frmMain.cboFilePath.AddItem path
         End If
 
         ' Get the most recent search expressions
         rKey = "MRUExpression" + Trim(Str(i))
-        Path = GetSetting(appname:="AstroGrep", _
+        path = GetSetting(appname:="AstroGrep", _
                 section:="Startup", Key:=rKey, Default:="")
                 
         ' Add the search expression to the path combobox.
-        If Path <> "" Then
-            frmMain.cboSearchForText.AddItem Path
+        If path <> "" Then
+            frmMain.cboSearchForText.AddItem path
         End If
         
         ' Get the most recent File names
         rKey = "MRUFileName" + Trim(Str(i))
-        Path = GetSetting(appname:="AstroGrep", _
+        path = GetSetting(appname:="AstroGrep", _
                 section:="Startup", Key:=rKey, Default:="")
                 
         ' Add the file name to the path combobox.
-        If Path <> "" Then
-            frmMain.cboFileName.AddItem Path, i
+        If path <> "" Then
+            frmMain.cboFileName.AddItem path, i
         End If
 
     Next i
@@ -194,7 +194,7 @@ Sub ClearHits()
 End Sub
 
 
-Sub Search(Path As String, ByVal FileName As String, SearchText As String)
+Sub Search(path As String, ByVal FileName As String, SearchText As String)
     
     Dim FileFinder As New CFileFinder
 
@@ -247,7 +247,7 @@ Sub Search(Path As String, ByVal FileName As String, SearchText As String)
     ' Kick off the search.
     '*********************
     
-    SearchDirectory Path, FileFinder, SearchText, frmMain.chkRecurse.Value
+    SearchDirectory path, FileFinder, SearchText, frmMain.chkRecurse.Value
     
     SetSearch False
     GB_CANCEL = False       ' Reset the cancel button.
@@ -255,7 +255,7 @@ Sub Search(Path As String, ByVal FileName As String, SearchText As String)
     
 End Sub
 
-Sub SearchDirectory(Path As String, FileFinder As CFileFinder, _
+Sub SearchDirectory(path As String, FileFinder As CFileFinder, _
     SearchText As String, Recurse As Boolean)
     
     Dim file As Integer, i As Integer
@@ -279,7 +279,7 @@ Sub SearchDirectory(Path As String, FileFinder As CFileFinder, _
 
     lastHit = 0
     contextIndex = 0
-    numContextLines = val(frmMain.lblContextLines.Caption)
+    numContextLines = val(frmMain.lblContextLines.Text)
     
     '*************************************************************
     ' Default spacer (left margin) values. If Line Numbers are on,
@@ -297,7 +297,7 @@ Sub SearchDirectory(Path As String, FileFinder As CFileFinder, _
     ' Notify the user that we are searching for matching files (status bar).
     '***********************************************************************
     
-    frmMain.lblSearchDirectory = Path
+    frmMain.lblSearchDirectory = path
     frmMain.lblSearchFile = "Searching: ..."
     
     file = FreeFile ' Get a file handle
@@ -306,7 +306,7 @@ Sub SearchDirectory(Path As String, FileFinder As CFileFinder, _
     ' Get the first matching filename (there may be more).
     '*****************************************************
     
-    FileName = FileFinder.FindFirstFile(Path)
+    FileName = FileFinder.FindFirstFile(path)
 
     '**********************************************
     ' Begin opening files and rooting through them.
@@ -318,7 +318,7 @@ Sub SearchDirectory(Path As String, FileFinder As CFileFinder, _
         ' Use bitwise comparison to make sure FileName isn't a directory.
         '****************************************************************
         
-        If Not (GetAttr(Path & FileName) And vbDirectory) Then
+        If Not (GetAttr(path & FileName) And vbDirectory) Then
          
             Err = 0
             
@@ -335,7 +335,7 @@ Sub SearchDirectory(Path As String, FileFinder As CFileFinder, _
             
             frmMain.lblSearchFile = FileName
             
-            Open Path & FileName For Input As #file      ' Create filename.
+            Open path & FileName For Input As #file      ' Create filename.
 
             '********************************************************
             ' If we have a problem with a file, skip to the next one.
@@ -437,7 +437,7 @@ Sub SearchDirectory(Path As String, FileFinder As CFileFinder, _
                         ' Create an instance of a "hit" object to store
                         ' all the hits for a given filename.
                         
-                        Set ho = G_HITS.Add(Path, FileName)
+                        Set ho = G_HITS.Add(path, FileName)
 
                         ' Due to an inconsistency in the way the Dir commannd works
                         ' we may sometimes search the same files twice.
@@ -576,7 +576,7 @@ Continue:
         ' Get the first matching filename (there may be more).
         '*****************************************************
         
-        FileName = FileFinder.FindFirstDirectory(Path)
+        FileName = FileFinder.FindFirstDirectory(path)
         
         '********************************************************************
         ' Store all the subdirectory names from this directory into an array.
@@ -586,7 +586,7 @@ Continue:
         
             ' Don't overrun our array boundaries.
             If DirCount > 255 Then
-                MsgBox "Too many directories in " & Path & "!", vbCritical
+                MsgBox "Too many directories in " & path & "!", vbCritical
                 Exit Do
             End If
             
@@ -609,7 +609,7 @@ Continue:
             
             If GB_CANCEL = True Then Exit Sub
 
-            Call SearchDirectory(Path & DirList(i) & "\", FileFinder, _
+            Call SearchDirectory(path & DirList(i) & "\", FileFinder, _
                 SearchText, Recurse)
             
         Next i
@@ -661,9 +661,9 @@ Sub SetSearch(EnableSearch As Boolean)
     frmMain.fraSearching.Visible = EnableSearch
 End Sub
 
-Function AddHitObject(Path As String, FileName As String)
+Function AddHitObject(path As String, FileName As String)
     Dim ho As New CHitObject
-    ho.Initialize Path, FileName
+    ho.Initialize path, FileName
 End Function
 
 '*************************************************
@@ -677,3 +677,32 @@ Sub EditFile(FileName As String, LineNum As Long)
 errHandler:
     MsgBox ("Error editing file: " + Error$(Err))
 End Sub
+
+
+'*************************************************
+'misc stuff added by dzzie
+'*************************************************
+Sub FormPos(fform As Form, Optional andSize As Boolean = False, Optional save_mode As Boolean = False)
+    
+    On Error Resume Next
+    
+    Dim f, sz, i, def, ff
+    f = Split(",Left,Top,Height,Width", ",")
+    
+    If fform.WindowState = vbMinimized Then Exit Sub
+    If andSize = False Then sz = 2 Else sz = 4
+    
+    For i = 1 To sz
+        If save_mode Then
+            ff = CallByName(fform, f(i), VbGet)
+            SaveSetting App.EXEName, fform.Name & ".FormPos", f(i), ff
+        Else
+            def = CallByName(fform, f(i), VbGet)
+            ff = GetSetting(App.EXEName, fform.Name & ".FormPos", f(i), def)
+            CallByName fform, f(i), VbLet, ff
+        End If
+    Next
+    
+End Sub
+
+

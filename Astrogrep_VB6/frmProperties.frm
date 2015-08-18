@@ -1,26 +1,33 @@
 VERSION 5.00
-Object = "{FE0065C0-1B7B-11CF-9D53-00AA003C9CB6}#1.1#0"; "COMCT232.OCX"
 Begin VB.Form frmProperties 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "AstroGrep Properties"
    ClientHeight    =   2940
-   ClientLeft      =   48
-   ClientTop       =   336
-   ClientWidth     =   5124
+   ClientLeft      =   45
+   ClientTop       =   330
+   ClientWidth     =   5130
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
    ScaleHeight     =   2940
-   ScaleWidth      =   5124
+   ScaleWidth      =   5130
    ShowInTaskbar   =   0   'False
-   StartUpPosition =   3  'Windows Default
+   StartUpPosition =   2  'CenterScreen
+   Begin VB.TextBox lblPathMRUCount 
+      Height          =   285
+      Left            =   3015
+      TabIndex        =   8
+      Text            =   "10"
+      Top             =   90
+      Width           =   735
+   End
    Begin VB.CheckBox chkLF 
       Appearance      =   0  'Flat
       Caption         =   "Line Feed"
       ForeColor       =   &H80000008&
       Height          =   255
       Left            =   240
-      TabIndex        =   8
+      TabIndex        =   6
       Top             =   960
       Width           =   1215
    End
@@ -30,7 +37,7 @@ Begin VB.Form frmProperties
       ForeColor       =   &H80000008&
       Height          =   255
       Left            =   240
-      TabIndex        =   7
+      TabIndex        =   5
       Top             =   720
       Width           =   1455
    End
@@ -38,29 +45,9 @@ Begin VB.Form frmProperties
       Appearance      =   0  'Flat
       Height          =   285
       Left            =   120
-      TabIndex        =   5
+      TabIndex        =   3
       Top             =   1680
       Width           =   4815
-   End
-   Begin ComCtl2.UpDown UpDown1 
-      Height          =   255
-      Left            =   3300
-      TabIndex        =   3
-      Top             =   120
-      Width           =   195
-      _ExtentX        =   423
-      _ExtentY        =   445
-      _Version        =   327681
-      BuddyControl    =   "lblPathMRUCount"
-      BuddyDispid     =   196617
-      OrigLeft        =   2400
-      OrigTop         =   840
-      OrigRight       =   2595
-      OrigBottom      =   1215
-      Max             =   25
-      SyncBuddy       =   -1  'True
-      BuddyProperty   =   65537
-      Enabled         =   -1  'True
    End
    Begin VB.CommandButton btnCancel 
       Cancel          =   -1  'True
@@ -85,7 +72,7 @@ Begin VB.Form frmProperties
       Caption         =   "End of line is denoted by:"
       Height          =   195
       Left            =   120
-      TabIndex        =   9
+      TabIndex        =   7
       Top             =   480
       Width           =   1785
    End
@@ -93,20 +80,9 @@ Begin VB.Form frmProperties
       Caption         =   "Program to open files with on double click."
       Height          =   255
       Left            =   120
-      TabIndex        =   6
+      TabIndex        =   4
       Top             =   1440
       Width           =   3135
-   End
-   Begin VB.Label lblPathMRUCount 
-      Appearance      =   0  'Flat
-      BackColor       =   &H80000005&
-      BorderStyle     =   1  'Fixed Single
-      ForeColor       =   &H80000008&
-      Height          =   255
-      Left            =   3000
-      TabIndex        =   4
-      Top             =   120
-      Width           =   300
    End
    Begin VB.Label Label1 
       AutoSize        =   -1  'True
@@ -148,7 +124,7 @@ End Sub
 
 Private Sub btnOK_Click()
 
-    NUM_STORED_PATHS = val(Me.lblPathMRUCount.Caption)
+    NUM_STORED_PATHS = val(Me.lblPathMRUCount.Text)
     DEFAULT_EDITOR = Me.txtEditor
 
     ENDOFLINEMARKER = ""
@@ -179,8 +155,8 @@ Private Sub Form_Load()
     Me.Top = frmMain.Top + (frmMain.Height - Me.Height) / 2
 
     ' Initialize the form.
-    Me.lblPathMRUCount.Caption = NUM_STORED_PATHS
-    Me.UpDown1.Max = MAX_STORED_PATHS
+    Me.lblPathMRUCount.Text = NUM_STORED_PATHS
+    'Me.UpDown1.Max = MAX_STORED_PATHS
     Me.txtEditor.Text = DEFAULT_EDITOR
     If InStr(ENDOFLINEMARKER, vbCr) Then
         Me.chkCR.Value = vbChecked

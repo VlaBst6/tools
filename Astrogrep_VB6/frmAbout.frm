@@ -4,8 +4,8 @@ Begin VB.Form frmAbout
    Caption         =   "About MyApp"
    ClientHeight    =   4020
    ClientLeft      =   2340
-   ClientTop       =   1932
-   ClientWidth     =   5736
+   ClientTop       =   1935
+   ClientWidth     =   5730
    ClipControls    =   0   'False
    Icon            =   "frmAbout.frx":0000
    LinkTopic       =   "Form2"
@@ -15,18 +15,19 @@ Begin VB.Form frmAbout
    ScaleMode       =   0  'User
    ScaleWidth      =   5380.766
    ShowInTaskbar   =   0   'False
+   StartUpPosition =   2  'CenterScreen
    Begin VB.PictureBox picIcon 
       AutoSize        =   -1  'True
       ClipControls    =   0   'False
-      Height          =   432
+      Height          =   540
       Left            =   240
       Picture         =   "frmAbout.frx":030A
-      ScaleHeight     =   263.118
+      ScaleHeight     =   336.791
       ScaleMode       =   0  'User
-      ScaleWidth      =   263.118
+      ScaleWidth      =   336.791
       TabIndex        =   1
       Top             =   240
-      Width           =   432
+      Width           =   540
    End
    Begin VB.CommandButton cmdOK 
       Cancel          =   -1  'True
@@ -50,8 +51,8 @@ Begin VB.Form frmAbout
       BorderColor     =   &H00808080&
       BorderStyle     =   6  'Inside Solid
       Index           =   1
-      X1              =   112.568
-      X2              =   5337.615
+      X1              =   112.686
+      X2              =   5337.57
       Y1              =   1905.001
       Y2              =   1905.001
    End
@@ -77,8 +78,8 @@ Begin VB.Form frmAbout
       BorderColor     =   &H00FFFFFF&
       BorderWidth     =   2
       Index           =   0
-      X1              =   112.568
-      X2              =   5323.544
+      X1              =   112.686
+      X2              =   5323.484
       Y1              =   1905.001
       Y2              =   1905.001
    End
@@ -166,9 +167,9 @@ End Sub
 
 
 Private Sub Form_Load()
-    Me.Caption = "About " & App.Title
-    lblVersion.Caption = "Version " & App.Major & "." & App.Minor & "." & App.Revision
-    lblTitle.Caption = App.Title
+    Me.Caption = "About " & App.title
+    lblVersion.Caption = "Version " & App.Major & "." & App.Minor & "." & App.Revision & " (dz mod)"
+    lblTitle.Caption = App.title
     gDisclaimer = lblDisclaimer
 End Sub
 

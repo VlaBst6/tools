@@ -10,6 +10,7 @@ Begin VB.Form frmCancel
    MousePointer    =   1  'Arrow
    ScaleHeight     =   1620
    ScaleWidth      =   7260
+   StartUpPosition =   2  'CenterScreen
    Begin VB.CommandButton btnCancel 
       Caption         =   "&Cancel"
       Height          =   495

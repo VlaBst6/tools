@@ -1,37 +1,16 @@
 VERSION 5.00
-Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "Richtx32.ocx"
-Object = "{FE0065C0-1B7B-11CF-9D53-00AA003C9CB6}#1.1#0"; "comct232.ocx"
-Object = "{6B7E6392-850A-101B-AFC0-4210102A8DA7}#1.3#0"; "comctl32.ocx"
-Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
+Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "RICHTX32.OCX"
 Begin VB.Form frmMain 
    Caption         =   "AstroGrep"
-   ClientHeight    =   5490
+   ClientHeight    =   4815
    ClientLeft      =   165
-   ClientTop       =   855
-   ClientWidth     =   6150
+   ClientTop       =   735
+   ClientWidth     =   5820
    Icon            =   "frmMain.frx":0000
    LinkTopic       =   "Form1"
-   ScaleHeight     =   5490
-   ScaleWidth      =   6150
+   ScaleHeight     =   4815
+   ScaleWidth      =   5820
    StartUpPosition =   3  'Windows Default
-   Begin ComctlLib.StatusBar sbStatusBar 
-      Align           =   2  'Align Bottom
-      Height          =   372
-      Left            =   0
-      TabIndex        =   29
-      Top             =   5112
-      Width           =   6156
-      _ExtentX        =   10848
-      _ExtentY        =   661
-      SimpleText      =   ""
-      _Version        =   327682
-      BeginProperty Panels {0713E89E-850A-101B-AFC0-4210102A8DA7} 
-         NumPanels       =   1
-         BeginProperty Panel1 {0713E89F-850A-101B-AFC0-4210102A8DA7} 
-            Object.Tag             =   ""
-         EndProperty
-      EndProperty
-   End
    Begin VB.Frame fraResults 
       BorderStyle     =   0  'None
       Caption         =   "Frame1"
@@ -70,7 +49,7 @@ Begin VB.Form frmMain
       Begin VB.Label lblExpression 
          Height          =   252
          Left            =   0
-         TabIndex        =   30
+         TabIndex        =   28
          Top             =   240
          Width           =   5412
       End
@@ -127,31 +106,17 @@ Begin VB.Form frmMain
       BorderStyle     =   0  'None
       Caption         =   "Frame1"
       Height          =   1815
-      Left            =   240
+      Left            =   225
       TabIndex        =   14
       Top             =   0
       Width           =   5532
-      Begin ComCtl2.UpDown UpDown1 
-         Height          =   255
-         Left            =   4100
-         TabIndex        =   31
-         ToolTipText     =   "Show lines above and below the word matched"
-         Top             =   1140
-         Width           =   255
-         _ExtentX        =   450
-         _ExtentY        =   450
-         _Version        =   327681
-         AutoBuddy       =   -1  'True
-         BuddyControl    =   "lblContextLines"
-         BuddyDispid     =   196632
-         OrigLeft        =   4100
-         OrigTop         =   1140
-         OrigRight       =   4355
-         OrigBottom      =   1395
-         Max             =   9
-         SyncBuddy       =   -1  'True
-         BuddyProperty   =   0
-         Enabled         =   -1  'True
+      Begin VB.TextBox lblContextLines 
+         Height          =   285
+         Left            =   4185
+         TabIndex        =   29
+         Text            =   "0"
+         Top             =   1125
+         Width           =   420
       End
       Begin VB.CheckBox chkFileNamesOnly 
          Appearance      =   0  'Flat
@@ -207,7 +172,7 @@ Begin VB.Form frmMain
       End
       Begin VB.ComboBox cboFilePath 
          Height          =   315
-         Left            =   960
+         Left            =   945
          TabIndex        =   1
          Top             =   0
          Width           =   4530
@@ -272,19 +237,6 @@ Begin VB.Form frmMain
          Top             =   360
          Width           =   3550
       End
-      Begin VB.Label lblContextLines 
-         Appearance      =   0  'Flat
-         BackColor       =   &H80000005&
-         BorderStyle     =   1  'Fixed Single
-         Caption         =   "0"
-         ForeColor       =   &H80000008&
-         Height          =   255
-         Left            =   4440
-         TabIndex        =   28
-         ToolTipText     =   "Show lines above and below the word matched"
-         Top             =   1140
-         Width           =   135
-      End
       Begin VB.Label Label3 
          Appearance      =   0  'Flat
          AutoSize        =   -1  'True
@@ -301,11 +253,11 @@ Begin VB.Form frmMain
          Caption         =   "Context lines"
          ForeColor       =   &H80000008&
          Height          =   255
-         Left            =   4560
+         Left            =   4635
          TabIndex        =   16
          ToolTipText     =   "Show lines above and below the word matched"
          Top             =   1140
-         Width           =   975
+         Width           =   930
       End
       Begin VB.Label Label4 
          Appearance      =   0  'Flat
@@ -323,19 +275,19 @@ Begin VB.Form frmMain
       BackColor       =   &H00808080&
       BorderStyle     =   0  'None
       FillColor       =   &H00808080&
-      Height          =   4800
-      Left            =   5280
-      ScaleHeight     =   2090.126
+      Height          =   615
+      Left            =   5265
+      ScaleHeight     =   267.797
       ScaleMode       =   0  'User
       ScaleWidth      =   780
       TabIndex        =   27
-      Top             =   480
+      Top             =   2025
       Visible         =   0   'False
       Width           =   72
    End
    Begin VB.ListBox lstFileNames 
       Appearance      =   0  'Flat
-      Height          =   1740
+      Height          =   705
       IntegralHeight  =   0   'False
       Left            =   120
       MultiSelect     =   2  'Extended
@@ -344,14 +296,15 @@ Begin VB.Form frmMain
       Width           =   1935
    End
    Begin RichTextLib.RichTextBox txtHits 
-      Height          =   3135
-      Left            =   2280
+      Height          =   705
+      Left            =   2160
       TabIndex        =   13
       Top             =   2160
       Width           =   2115
       _ExtentX        =   3731
-      _ExtentY        =   5530
+      _ExtentY        =   1244
       _Version        =   393217
+      Enabled         =   -1  'True
       ReadOnly        =   -1  'True
       ScrollBars      =   3
       Appearance      =   0
@@ -368,36 +321,14 @@ Begin VB.Form frmMain
          Strikethrough   =   0   'False
       EndProperty
    End
-   Begin MSComDlg.CommonDialog cdlgPrinter 
-      Left            =   45
-      Top             =   4560
-      _ExtentX        =   847
-      _ExtentY        =   847
-      _Version        =   393216
-   End
    Begin VB.Image imgSplitter 
       Appearance      =   0  'Flat
       BorderStyle     =   1  'Fixed Single
-      Height          =   4785
-      Left            =   2040
+      Height          =   960
+      Left            =   2070
       MousePointer    =   9  'Size W E
-      Top             =   720
-      Width           =   80
-   End
-   Begin VB.Menu mnuPrint 
-      Caption         =   "&Print"
-      Begin VB.Menu mnuPrinterSetup 
-         Caption         =   "&Setup printer..."
-      End
-      Begin VB.Menu mnuPrintFileList 
-         Caption         =   "&Print List of Filenames"
-      End
-      Begin VB.Menu mnuPrintCurrent 
-         Caption         =   "&Print Current"
-      End
-      Begin VB.Menu mnuPrintAllHits 
-         Caption         =   "&Print Selected"
-      End
+      Top             =   1935
+      Width           =   75
    End
    Begin VB.Menu mnuTools 
       Caption         =   "&Tools"
@@ -456,10 +387,11 @@ Const SGLSPLITLIMIT = 500
 Dim mbMoving As Boolean
 
 Private Sub btnBrowse_Click()
-    frmBrowse.Show vbModal
-    If frmBrowse.mCancel = False Then
-        Me.cboFilePath.Text = frmBrowse.Dir1.Path
-    End If
+    Dim dlg As New clsCmnDlg
+    Dim pth As String
+    pth = dlg.FolderDialog(, Me.hWnd)
+    If Len(pth) = 0 Then Exit Sub
+    Me.cboFilePath.Text = pth
 End Sub
 
 Private Sub btnCancel_Click()
@@ -475,7 +407,7 @@ Private Function VerifyInterface() As Boolean
 
     VerifyInterface = False
     On Error GoTo contexterror
-    If Me.lblContextLines.Caption < 0 Or Me.lblContextLines.Caption > 9 Then
+    If Me.lblContextLines.Text < 0 Or Me.lblContextLines.Text > 9 Then
 contexterror:
         MsgBox "Number of context lines must be between 0 and 9", vbOKOnly + vbCritical, "Error"
         Exit Function
@@ -483,7 +415,7 @@ contexterror:
     VerifyInterface = True
 End Function
 Private Sub btnSearch_Click()
-    Dim Path As String
+    Dim path As String
     Dim fn As String
     Dim i As Integer
     Dim expression As String
@@ -491,26 +423,26 @@ Private Sub btnSearch_Click()
     If VerifyInterface = False Then Exit Sub
     
     fn = Me.cboFileName.Text
-    Path = Trim(cboFilePath.Text)
+    path = Trim(cboFilePath.Text)
     expression = Trim(cboSearchForText)
     
     'AddPathComboSelection Path
     AddComboSelection frmMain.cboSearchForText, expression
     AddComboSelection frmMain.cboFileName, fn
-    AddComboSelection frmMain.cboFilePath, Path
+    AddComboSelection frmMain.cboFilePath, path
     
     ' Ensure that there is a backslash.
-    If Right$(Path, 1) <> "\" Then Path = Path & "\"
+    If Right$(path, 1) <> "\" Then path = path & "\"
     
     For i = Len(fn) To 1 Step -1
         If Mid$(fn, i, 1) = "\" Then
-            Path = Left$(fn, i)
+            path = Left$(fn, i)
             fn = Right$(fn, Len(fn) - i)
             Exit For
         End If
     Next i
     
-    Call Search(Path, fn, expression)
+    Call Search(path, fn, expression)
     
 End Sub
 
@@ -542,13 +474,11 @@ Private Sub chkFileNamesOnly_Click()
     If chkFileNamesOnly.Value Then
         chkLineNumbers.Enabled = False
         lblContextLines.Enabled = False
-        lblContextLines.Enabled = False
-        UpDown1.Enabled = False
+        'UpDown1.Enabled = False
     Else
         chkLineNumbers.Enabled = True
         lblContextLines.Enabled = True
-        lblContextLines.Enabled = True
-        UpDown1.Enabled = True
+        'UpDown1.Enabled = True
     End If
 End Sub
 
@@ -573,8 +503,9 @@ Private Sub Form_Load()
     LoadRegistrySettings
     
     ' For some reason these controls were hiding under eachother on some systems.
-    lblContextLines.Left = UpDown1.Left + UpDown1.Width + 10
+    'lblContextLines.Left = UpDown1.Left + UpDown1.Width + 10
     
+    FormPos Me, True
 End Sub
 
 Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
@@ -604,11 +535,15 @@ Private Sub Form_Resize()
     lblSearchFile.Width = fraSearching.Width - lblSearchFile.Left - 300
 End Sub
 
+Private Sub Form_Unload(Cancel As Integer)
+    FormPos Me, True, True
+End Sub
+
 Private Sub lstFileNames_Click()
     Dim ho As CHitObject
     Set ho = G_HITS.Item(lstFileNames.ListIndex + 1)
     frmMain.txtHits.TextRTF = ho.GetHitString()
-    frmMain.sbStatusBar.Panels(1).Text = ho.Path
+    'frmMain.sbStatusBar.Panels(1).Text = ho.path
     
     Set ho = Nothing
 End Sub
@@ -616,7 +551,7 @@ End Sub
 Private Sub lstFileNames_DblClick()
     Dim FileName As String
 
-    FileName = G_HITS.Item(lstFileNames.ListIndex + 1).Path + _
+    FileName = G_HITS.Item(lstFileNames.ListIndex + 1).path + _
         G_HITS.Item(lstFileNames.ListIndex + 1).FileName
     
     ' Open the default editor.
@@ -629,7 +564,7 @@ Private Sub mEditAll_Click()
 
     For i = 0 To lstFileNames.ListCount - 1
         If lstFileNames.Selected(i) Then
-            FileName = G_HITS.Item(i + 1).Path + G_HITS.Item(i + 1).FileName
+            FileName = G_HITS.Item(i + 1).path + G_HITS.Item(i + 1).FileName
     
             ' Open the default editor.
             EditFile FileName, 1
@@ -676,12 +611,12 @@ Sub SizeControls(X As Single)
     Const SPLITTERSIZE = 40
     Dim statusBarheight As Integer
 
-    If sbStatusBar.Visible = True Then
-        sbStatusBar.Panels.Item(1).Width = frmMain.Width - 500
-        statusBarheight = sbStatusBar.Height
-    Else
+    'If sbStatusBar.Visible = True Then
+    '    sbStatusBar.Panels.Item(1).Width = frmMain.Width - 500
+    '    statusBarheight = sbStatusBar.Height
+    'Else
         statusBarheight = 0
-    End If
+    'End If
     
     'set the width
     If X < 1500 Then X = 1500
@@ -715,26 +650,6 @@ Private Sub mnuOptions_Click()
     frmProperties.Show vbModal
 End Sub
 
-Private Sub mnuPrintAllHits_Click()
-    PrintSelectedItems Me.lstFileNames, G_HITS
-End Sub
-
-Private Sub mnuPrintCurrent_Click()
-    If Me.lstFileNames.ListIndex = -1 Then
-        MsgBox "No item selected", vbCritical + vbOKOnly, "Error"
-    Else
-        PrintSingleItem G_HITS(Me.lstFileNames.ListIndex + 1)
-    End If
-End Sub
-
-Private Sub mnuPrinterSetup_Click()
-    PrinterSetup
-End Sub
-
-Private Sub mnuPrintFileList_Click()
-    PrintFileList G_HITS
-End Sub
-
 Private Sub mnuSelectAll_Click()
     Dim i As Integer
     Dim sel As Integer
@@ -762,7 +677,7 @@ Private Sub txtHits_DblClick()
     ' Use the cursor's linenumber to get the hit's line number.
     LineNum = G_HITS.Item(lstFileNames.ListIndex + 1).GetHitLineNumber(i)
     
-    FileName = G_HITS.Item(lstFileNames.ListIndex + 1).Path + _
+    FileName = G_HITS.Item(lstFileNames.ListIndex + 1).path + _
         G_HITS.Item(lstFileNames.ListIndex + 1).FileName
     
     ' Open the default editor.
@@ -770,3 +685,4 @@ Private Sub txtHits_DblClick()
     
 End Sub
 
+ 
