@@ -5,14 +5,31 @@ Begin VB.Form frmProperties
    ClientHeight    =   2940
    ClientLeft      =   45
    ClientTop       =   330
-   ClientWidth     =   5130
+   ClientWidth     =   6165
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
    ScaleHeight     =   2940
-   ScaleWidth      =   5130
+   ScaleWidth      =   6165
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
+   Begin VB.TextBox txtOther 
+      Height          =   285
+      Left            =   2925
+      TabIndex        =   10
+      Top             =   675
+      Width           =   870
+   End
+   Begin VB.CheckBox chkOther 
+      Appearance      =   0  'Flat
+      Caption         =   "Other"
+      ForeColor       =   &H80000008&
+      Height          =   255
+      Left            =   2070
+      TabIndex        =   9
+      Top             =   720
+      Width           =   735
+   End
    Begin VB.TextBox lblPathMRUCount 
       Height          =   285
       Left            =   3015
@@ -66,6 +83,14 @@ Begin VB.Form frmProperties
       TabIndex        =   0
       Top             =   2400
       Width           =   855
+   End
+   Begin VB.Label Label3 
+      Caption         =   "(Supports \r\n\t)"
+      Height          =   240
+      Left            =   4005
+      TabIndex        =   11
+      Top             =   720
+      Width           =   1230
    End
    Begin VB.Label Label4 
       AutoSize        =   -1  'True
@@ -128,8 +153,21 @@ Private Sub btnOK_Click()
     DEFAULT_EDITOR = Me.txtEditor
 
     ENDOFLINEMARKER = ""
-    If Me.chkCR.Value = vbChecked Then ENDOFLINEMARKER = ENDOFLINEMARKER + vbCr
-    If Me.chkLF.Value = vbChecked Then ENDOFLINEMARKER = ENDOFLINEMARKER + vbLf
+    
+    'dzzie: allow for custom end of line markers..
+    If chkOther.Value = 1 Then
+        If Len(Trim(txtOther)) = 0 Then
+            MsgBox "Delimiter can not be empty or space", vbInformation
+            Exit Sub
+        End If
+        ENDOFLINEMARKER = txtOther
+        ENDOFLINEMARKER = Replace(ENDOFLINEMARKER, "\r", vbCr)
+        ENDOFLINEMARKER = Replace(ENDOFLINEMARKER, "\n", vbLf)
+        ENDOFLINEMARKER = Replace(ENDOFLINEMARKER, "\t", vbTab)
+    Else
+        If Me.chkCR.Value = vbChecked Then ENDOFLINEMARKER = ENDOFLINEMARKER + vbCr
+        If Me.chkLF.Value = vbChecked Then ENDOFLINEMARKER = ENDOFLINEMARKER + vbLf
+    End If
 
     ' Store settings in registry.
     UpdateRegistrySettings
@@ -158,17 +196,36 @@ Private Sub Form_Load()
     Me.lblPathMRUCount.Text = NUM_STORED_PATHS
     'Me.UpDown1.Max = MAX_STORED_PATHS
     Me.txtEditor.Text = DEFAULT_EDITOR
-    If InStr(ENDOFLINEMARKER, vbCr) Then
-        Me.chkCR.Value = vbChecked
+    
+    Dim otherEOL As Long
+    Dim tmp As String
+    
+    'dzzie: txtother support
+    otherEOL = GetSetting(appname:="AstroGrep", section:="Startup", Key:="otherEOL", Default:=0)
+    If otherEOL = 1 Then
+        chkOther.Value = 1
+        tmp = Replace(ENDOFLINEMARKER, vbCr, "\r")
+        tmp = Replace(tmp, vbLf, "\n")
+        tmp = Replace(tmp, vbTab, "\t")
+        txtOther = tmp
     Else
-        Me.chkCR.Value = vbUnchecked
+    
+        If InStr(ENDOFLINEMARKER, vbCr) Then
+            Me.chkCR.Value = vbChecked
+        Else
+            Me.chkCR.Value = vbUnchecked
+        End If
+        
+        If InStr(ENDOFLINEMARKER, vbLf) Then
+            Me.chkLF.Value = vbChecked
+        Else
+            Me.chkLF.Value = vbUnchecked
+        End If
+        
     End If
     
-    If InStr(ENDOFLINEMARKER, vbLf) Then
-        Me.chkLF.Value = vbChecked
-    Else
-        Me.chkLF.Value = vbUnchecked
-    End If
-        
 End Sub
 
+Private Sub Form_Unload(Cancel As Integer)
+    SaveSetting "AstroGrep", "Startup", "otherEOL", chkOther.Value
+End Sub

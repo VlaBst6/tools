@@ -1,0 +1,5 @@
+
+astrogrep: show file size and progress bar
+           for regex of gigantic files let regex do the parsing of file not eol based.
+
+

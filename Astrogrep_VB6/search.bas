@@ -398,6 +398,20 @@ Sub SearchDirectory(path As String, FileFinder As CFileFinder, _
                     regularExp.Pattern = SearchText
                     If regularExp.Test(textLine) Then
                         i = 1
+                        
+                        'dzzie: replace full line text with just what matched the regex (used for text extraction)
+                        If frmMain.chkMatchOnly.Value = vbChecked Then
+                            Dim m As Match
+                            Dim mm As MatchCollection
+                            Dim tmp As String
+                            
+                            Set mm = regularExp.Execute(textLine)
+                            For Each m In mm
+                                tmp = tmp & m.Value & ", "
+                            Next
+                            textLine = tmp
+                        End If
+                            
                     Else
                         i = 0
                     End If
@@ -705,4 +719,46 @@ Sub FormPos(fform As Form, Optional andSize As Boolean = False, Optional save_mo
     
 End Sub
 
+
+
+Function FileExists(path As String) As Boolean
+  On Error GoTo hell
+    
+  If Len(path) = 0 Then Exit Function
+  If Right(path, 1) = "\" Then Exit Function
+  If Dir(path, vbHidden Or vbNormal Or vbReadOnly Or vbSystem) <> "" Then FileExists = True
+  
+  Exit Function
+hell: FileExists = False
+End Function
+
+Function GetParentFolder(path) As String
+Dim tmp, ub
+
+    tmp = Split(path, "\")
+    ub = tmp(UBound(tmp))
+    GetParentFolder = Replace(Join(tmp, "\"), "\" & ub, "")
+End Function
+
+Function FileNameFromPath(fullpath) As String
+Dim tmp
+
+    If InStr(fullpath, "\") > 0 Then
+        tmp = Split(fullpath, "\")
+        FileNameFromPath = CStr(tmp(UBound(tmp)))
+    End If
+End Function
+
+
+
+Function FolderExists(path As String) As Boolean
+  On Error GoTo hell
+  Dim tmp As String
+  tmp = path & "\"
+  If Len(tmp) = 1 Then Exit Function
+  If Dir(tmp, vbDirectory) <> "" Then FolderExists = True
+  Exit Function
+hell:
+    FolderExists = False
+End Function
 

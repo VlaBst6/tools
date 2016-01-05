@@ -5,11 +5,11 @@ Begin VB.Form frmMain
    ClientHeight    =   4815
    ClientLeft      =   165
    ClientTop       =   735
-   ClientWidth     =   5820
+   ClientWidth     =   7740
    Icon            =   "frmMain.frx":0000
    LinkTopic       =   "Form1"
    ScaleHeight     =   4815
-   ScaleWidth      =   5820
+   ScaleWidth      =   7740
    StartUpPosition =   3  'Windows Default
    Begin VB.Frame fraResults 
       BorderStyle     =   0  'None
@@ -109,13 +109,24 @@ Begin VB.Form frmMain
       Left            =   225
       TabIndex        =   14
       Top             =   0
-      Width           =   5532
+      Width           =   7020
+      Begin VB.CheckBox chkMatchOnly 
+         Appearance      =   0  'Flat
+         Caption         =   "Match Only"
+         ForeColor       =   &H80000008&
+         Height          =   255
+         Left            =   5175
+         TabIndex        =   30
+         ToolTipText     =   "Use ""regular expression"" matching"
+         Top             =   1485
+         Width           =   1320
+      End
       Begin VB.TextBox lblContextLines 
          Height          =   285
-         Left            =   4185
+         Left            =   2880
          TabIndex        =   29
          Text            =   "0"
-         Top             =   1125
+         Top             =   1395
          Width           =   420
       End
       Begin VB.CheckBox chkFileNamesOnly 
@@ -123,10 +134,10 @@ Begin VB.Form frmMain
          Caption         =   "Show file names only"
          ForeColor       =   &H80000008&
          Height          =   195
-         Left            =   3120
+         Left            =   2880
          TabIndex        =   9
          ToolTipText     =   "Show names but not contents of files that have matches (may be faster on large files)"
-         Top             =   1440
+         Top             =   1170
          Width           =   1935
       End
       Begin VB.CheckBox chkRecurse 
@@ -134,10 +145,10 @@ Begin VB.Form frmMain
          Caption         =   "Recurse"
          ForeColor       =   &H80000008&
          Height          =   252
-         Left            =   3120
+         Left            =   1485
          TabIndex        =   8
          ToolTipText     =   "Search in sub-directories"
-         Top             =   1140
+         Top             =   1125
          Value           =   1  'Checked
          Width           =   975
       End
@@ -146,10 +157,10 @@ Begin VB.Form frmMain
          Caption         =   "Whole word"
          ForeColor       =   &H80000008&
          Height          =   252
-         Left            =   1800
+         Left            =   0
          TabIndex        =   6
          ToolTipText     =   "Only match entire words (not parts of words)"
-         Top             =   1140
+         Top             =   1125
          Width           =   1332
       End
       Begin VB.ComboBox cboSearchForText 
@@ -164,15 +175,16 @@ Begin VB.Form frmMain
          Caption         =   "Regular Expressions"
          ForeColor       =   &H80000008&
          Height          =   255
-         Left            =   0
+         Left            =   4815
          TabIndex        =   4
          ToolTipText     =   "Use ""regular expression"" matching"
-         Top             =   1140
+         Top             =   1170
          Width           =   1815
       End
       Begin VB.ComboBox cboFilePath 
          Height          =   315
          Left            =   945
+         OLEDropMode     =   1  'Manual
          TabIndex        =   1
          Top             =   0
          Width           =   4530
@@ -212,7 +224,7 @@ Begin VB.Form frmMain
          Caption         =   "Line numbers"
          ForeColor       =   &H80000008&
          Height          =   195
-         Left            =   1800
+         Left            =   1485
          TabIndex        =   7
          ToolTipText     =   "Include line numbers before each match"
          Top             =   1440
@@ -253,10 +265,10 @@ Begin VB.Form frmMain
          Caption         =   "Context lines"
          ForeColor       =   &H80000008&
          Height          =   255
-         Left            =   4635
+         Left            =   3375
          TabIndex        =   16
          ToolTipText     =   "Show lines above and below the word matched"
-         Top             =   1140
+         Top             =   1440
          Width           =   930
       End
       Begin VB.Label Label4 
@@ -470,6 +482,25 @@ Sub AddComboSelection(cbo As ComboBox, newItem As String)
     End If
     
 End Sub
+
+'dzzie drag and drop support for path (file of dir)
+Private Sub cboFilePath_OLEDragDrop(Data As DataObject, Effect As Long, Button As Integer, Shift As Integer, X As Single, Y As Single)
+    On Error GoTo hell
+    
+    Dim pth As String
+    pth = Data.Files(1)
+    
+    If FolderExists(pth) Then
+        cboFilePath.Text = pth
+    ElseIf FileExists(pth) Then
+        cboFilePath.Text = GetParentFolder(pth)
+        cboFileName.Text = FileNameFromPath(pth)
+    End If
+    
+hell:
+    
+End Sub
+
 Private Sub chkFileNamesOnly_Click()
     If chkFileNamesOnly.Value Then
         chkLineNumbers.Enabled = False

@@ -1,1 +1,4 @@
 
+astrogrep - ability to run a script on each result line (and maybe use result as replace val?)
+
+
