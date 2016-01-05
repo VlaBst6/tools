@@ -64,6 +64,7 @@ Public Sub ListEngine(folderpath)
                Case 14: Call unix2Dos(f)
                Case 15: Call dos2Unix(f)
                Case 16: Call batchReplace(f)
+               Case 17: Call PrefixFiles(f)
            End Select
       End If
     Next
@@ -191,6 +192,13 @@ Private Sub SeqName(arg As String)
   Call fso.Rename(arg, Seq.count & Seq.Appnd & ext)
 End Sub
 
+Private Sub PrefixFiles(arg As String)
+  ext = fso.GetExtension(arg)
+  bn = fso.GetBaseName(arg)
+  Seq.count = Seq.count + 1
+  Call fso.Rename(arg, Seq.Appnd & bn & ext)
+End Sub
+
 
 
 Private Function setTo(X)
@@ -224,7 +232,10 @@ Public Function exclude(test, acpt) As Boolean
     a = False
     tmp = Split(acpt, ",")
     For i = 0 To UBound(tmp)
-      If LCase(test) = LCase(tmp(i)) Then a = True
+      If LCase(test) = LCase(tmp(i)) Or tmp(i) = "*" Then
+            a = True
+            Exit For
+      End If
     Next
     If InStr(1, Form1.lblMsg, "Exclude") < 1 Then a = Not a
     'MsgBox test & " " & acpt & "  " & a

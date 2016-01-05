@@ -166,7 +166,7 @@ Private Sub Form_Load()
   vals = "Extension Rename,Merge Files,Directory Listing,Html Index," & _
        "Remove Scripting,Remove HTML,Unzip,Zip,Set Hidden,Unset Hidden," & _
        "Set ReadOnly,Unset ReadOnly,Img Src Index,Sequential Rename," & _
-       "Unix -> Dos,Dos -> Unix,Batch Replace"
+       "Unix -> Dos,Dos -> Unix,Batch Replace,Prefix FileName"
   s = Split(vals, ",")
   For i = 0 To UBound(s)
     Combo1.AddItem s(i), i
@@ -187,7 +187,7 @@ Private Sub preprocess(Index As Integer)
      Case 6: lblMsg = "Unzip ": Text2 = "zip": Call activate(Text2, False)
      Case 7: lblMsg = "Exclude ": Text2 = "log;tmp"
      Case 8, 9, 10, 11: lblMsg = "Exclude ": Text2 = "exe;dll;ocx"
-     Case 12, 13: lblMsg = "Include ": Text2 = "jpg;gif;bmp"
+     Case 12, 13, 17: lblMsg = "Include ": Text2 = "jpg;gif;bmp"
   End Select
   If Index <> 6 Then Call activate(Text2)
 End Sub
@@ -196,7 +196,7 @@ Private Sub Command1_Click()
  'On Error GoTo warn
    If Text1 = Empty Then MsgBox "You must drag and drop the files or folders you want to work with in the large white box :)": Exit Sub
    Select Case Selopt
-      Case 6, 7, 13, 16: Call Prompt
+      Case 6, 7, 13, 17, 16: Call Prompt
    End Select
    Call Vdate(Selopt) 'reads in extension options
    
@@ -257,6 +257,7 @@ Private Sub Prompt()
     Case 6: msg = "Unzip All Files Into Parent Directory?"
     Case 7:  msg = "Zip Entire Folder into one Zip?"
     Case 13: msg = "If you would like a character appended..enter it below."
+    Case 17: msg = "Enter string to prepend to filename."
     Case 16: msg = "replace 'this'->'that' no quotes"
   End Select
   
@@ -265,7 +266,7 @@ Private Sub Prompt()
         ans = MsgBox(msg, vbYesNo)
         If ans = vbYes Then Together = True _
           Else: Together = False
-    Case 13
+    Case 13, 17
         Seq.count = 0
         Seq.Appnd = InputBox(msg)
     Case 16
