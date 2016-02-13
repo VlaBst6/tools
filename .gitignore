@@ -38,4 +38,6 @@ iTextFilters.dll.config
 /scripts/old_*
 old_*
 new_*
-
+*.dep
+*.ilk
+*.manifest
