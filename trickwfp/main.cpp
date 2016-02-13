@@ -5,6 +5,7 @@
 
 // just tested on win2k sp0 to update usbser.sys to the XP sp3 version so I could use
 // Arduino on an old win2k machine and it worked perfect :) -dz
+// note: permanent patch doesnt work on XP SP3, but live disable does until reboot..
 
 #include <windows.h>
 #include <stdio.h>
@@ -244,7 +245,7 @@ BOOL CompareStringBackwards(WCHAR *Str1, WCHAR *Str2)
    return TRUE;
 }
 
-BOOL TrickWFP(VOID)
+BOOL TrickWFP(bool patchDllToo)
 {
    HINSTANCE hNtDll, hPsApi;
    PSYSTEMHANDLEINFO pSystemHandleInfo = NULL;
@@ -455,6 +456,8 @@ BOOL TrickWFP(VOID)
       return FALSE;
    }
    
+   int handlesClosed = 0;
+
    for (i = 0; i < pSystemHandleInfo->nHandleEntries; i++)
    {
       if (pSystemHandleInfo->HandleInfo[i].Pid == WinLogonId)
@@ -483,6 +486,7 @@ BOOL TrickWFP(VOID)
                      DUPLICATE_CLOSE_SOURCE | DUPLICATE_SAME_ACCESS);
 
                   CloseHandle(hCopy);
+				  handlesClosed++;
                }
             }
             else
@@ -496,6 +500,10 @@ BOOL TrickWFP(VOID)
 
    VirtualFree(pSystemHandleInfo, 0, MEM_RELEASE);
    CloseHandle(hWinLogon);
+
+   printf("%d open SFC file handles closed\n", handlesClosed);
+
+   if(!patchDllToo) return TRUE;
 
    // patch wfp smartly
 
@@ -566,7 +574,7 @@ BOOL TrickWFP(VOID)
    {
       // cannot patch
       // maybe w2k without sp1
-
+	  printf("Could not find byte sequence to patch!\n");
       goto no_need_to_patch;
    }
 
@@ -594,6 +602,8 @@ BOOL TrickWFP(VOID)
    WriteFile(hFile, pSfc, dwFileSize, &BRW, NULL);
 
    CloseHandle(hFile);
+	
+   printf("SFC Dll Permanently Patched!\n");
 
 no_need_to_patch:
 
@@ -629,20 +639,52 @@ no_need_to_patch:
    }
    
    RegCloseKey(Key);
+   printf("SFC disabled in the registry!\n");
 
    return TRUE;
 }
 
 void main()
 {
-   if (TrickWFP() == TRUE)
+
+   bool doPatch = false;
+
+   printf("This will disable windows file protection.\n");
+   printf("This is dangerous for system health.\n");
+   printf("Author: Daniel Pistelli ntcore.com - 2004\n");
+   printf("-- EXPERT USE ONLY, USE AT YOUR OWN RISK!!--\n\n");
+   printf("Choose an option:\n");
+   printf(" 1) temporary until next reboot\n");
+   printf(" 2) permanently patch the dll\n");
+   printf(" 3) exit now\n");
+   printf("Enter choice (1-3):");
+
+   char opt = getch();
+	
+   if(opt=='2'){
+	   printf("\nConfirm permanent disable of WFP: (Y/N)");
+	   char y = tolower(getch());
+	   if(y=='n') return;
+	   doPatch = true;
+   }
+   else if(opt!='1'){
+	   return;
+   }
+
+   printf("\n\nDisabling SFC..\n");
+
+   if (TrickWFP(doPatch) == TRUE)
    {
-      printf("ok press any key to continue..");
-	  getch();
+      printf("Complete!\n");  
    }
    else
    {
-      printf("failed");
+	   printf("Failed :(\n");
    }
+
+   printf("press any key to continue..");
+   getch();
+
+
 }
 

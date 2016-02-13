@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "trickwfp", "trickwfp\trickwfp.vcproj", "{B2B03F91-1FF6-470E-9E3C-1D836EE21A69}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "trickwfp", "trickwfp.vcproj", "{B2B03F91-1FF6-470E-9E3C-1D836EE21A69}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
