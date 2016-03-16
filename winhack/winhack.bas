@@ -29,7 +29,7 @@ Public Declare Function GetWindowTextLength Lib "user32.dll" Alias "GetWindowTex
 Public Declare Function GetClassName Lib "user32" Alias "GetClassNameA" (ByVal hwnd As Long, ByVal lpClassname As String, ByVal nMaxCount As Long) As Long
 Public Declare Function GetParent Lib "user32" (ByVal hwnd As Long) As Long
 
-Declare Function GetPixel Lib "gdi32" (ByVal hdc As Long, ByVal x As Long, ByVal Y As Long) As Long
+Declare Function GetPixel Lib "gdi32" (ByVal hdc As Long, ByVal x As Long, ByVal y As Long) As Long
 Declare Function GetDesktopWindow Lib "user32" () As Long
 Declare Function GetDC Lib "user32" (ByVal hwnd As Long) As Long
 Declare Function ReleaseDC Lib "user32" (ByVal hwnd As Long, ByVal hdc As Long) As Long
@@ -61,7 +61,7 @@ Public Const WM_PAINT = &HF
 
 Public Type PointAPI
     x As Long
-    Y As Long
+    y As Long
 End Type
 
 Type RECT
@@ -82,16 +82,13 @@ Declare Function LockWindowUpdate Lib "user32" (ByVal hwndLock As Long) As Long
 
 
 Public Function EnumChildProc(ByVal hwnd As Long, ByVal lParam As Long) As Long
-    Dim s As String, h As String
+    Dim cap As String, cls As String, h As String
+    Dim li As ListItem
     
     h = hwnd
-    s = GetCaption(hwnd)
-    s = IIf(Len(Trim(s)) > 0, " -- ", Empty) & s & " -- " & GetClass(hwnd)
-    
-    
-    While Len(h) < 10: h = h & " ": Wend
-    
-    frmChildren.List1.AddItem h & s
+    cap = GetCaption(hwnd)
+    cls = GetClass(hwnd)
+    frmChildren.lv.AddItem h, cls, cap
     
     EnumChildProc = 1 'continue enum
 End Function
@@ -181,7 +178,7 @@ Function GetProcessPath(hwnd As Long) As String
                 
         sPath = Space$(260)
         ret = GetModuleFileNameExA(hProc, hMods(0), sPath, 260)
-        GetProcessPath = Left$(sPath, ret)
+        GetProcessPath = pid & " (0x" & Hex(pid) & ") " & Left$(sPath, ret)
         'Debug.Print pId, Left$(sPath, ret)
         Call CloseHandle(hProc)
     'Else

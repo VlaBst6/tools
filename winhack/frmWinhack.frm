@@ -1,10 +1,10 @@
 VERSION 5.00
 Begin VB.Form frmWinHack 
    Caption         =   "winHack  - http://sandsprite.com"
-   ClientHeight    =   2985
+   ClientHeight    =   3045
    ClientLeft      =   60
    ClientTop       =   345
-   ClientWidth     =   4305
+   ClientWidth     =   4410
    BeginProperty Font 
       Name            =   "Tahoma"
       Size            =   8.25
@@ -16,8 +16,8 @@ Begin VB.Form frmWinHack
    EndProperty
    Icon            =   "frmWinhack.frx":0000
    LinkTopic       =   "Form1"
-   ScaleHeight     =   2985
-   ScaleWidth      =   4305
+   ScaleHeight     =   3045
+   ScaleWidth      =   4410
    StartUpPosition =   2  'CenterScreen
    Begin VB.TextBox lblCaption 
       BackColor       =   &H80000000&
@@ -216,7 +216,7 @@ Begin VB.Form frmWinHack
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H00C00000&
-      Height          =   315
+      Height          =   2025
       Left            =   0
       TabIndex        =   26
       Top             =   2700

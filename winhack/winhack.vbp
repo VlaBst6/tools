@@ -1,6 +1,6 @@
 Type=Exe
 Form=frmWinhack.frm
-Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#C:\WINNT\system32\stdole2.tlb#OLE Automation
+Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#C:\WINDOWS\system32\stdole2.tlb#OLE Automation
 Module=modWinHack; winhack.bas
 Form=Form1.frm
 Form=Form2.frm
@@ -9,6 +9,8 @@ Class=Reporter; Reporter.cls
 Form=frmConversion2.frm
 Form=frmListSnag.frm
 ResFile32="winhack.RES"
+Object={831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0; MSCOMCTL.OCX
+UserControl=ucFilterList.ctl
 IconForm="frmWinHack"
 Startup="frmWinHack"
 HelpFile=""
@@ -43,3 +45,6 @@ MaxNumberOfThreads=1
 
 [MS Transaction Server]
 AutoRefresh=1
+
+[fastBuild]
+fullPath=D:\_tools\winhack\winHack.exe

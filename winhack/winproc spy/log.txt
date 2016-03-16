@@ -1,0 +1,72 @@
+Message: hWnd=4915850, uMsg=33, wParam=5374368, lParam=33816577
+Message: hWnd=4915850, uMsg=516, wParam=2, lParam=262199
+Message: hWnd=4915850, uMsg=517, wParam=0, lParam=262199
+Message: hWnd=4915850, uMsg=123, wParam=4915850, lParam=5177674
+Message: hWnd=4915850, uMsg=7, wParam=5505452, lParam=0
+Message: hWnd=4915850, uMsg=533, wParam=0, lParam=4915850
+Message: hWnd=4915850, uMsg=4110, wParam=3, lParam=0
+Message: hWnd=4915850, uMsg=287, wParam=-2139094268, lParam=18744197
+Message: hWnd=4915850, uMsg=287, wParam=-2013069312, lParam=18744197
+Message: hWnd=4915850, uMsg=287, wParam=-2138897664, lParam=18744197
+Message: hWnd=4915850, uMsg=287, wParam=-2138897663, lParam=18744197
+Message: hWnd=4915850, uMsg=287, wParam=-2139094270, lParam=18744197
+Message: hWnd=4915850, uMsg=287, wParam=-2138897661, lParam=18744197
+Message: hWnd=4915850, uMsg=287, wParam=-2013069312, lParam=18744197
+Message: hWnd=4915850, uMsg=287, wParam=-2139094863, lParam=18744197
+Message: hWnd=4915850, uMsg=533, wParam=0, lParam=0
+Message: hWnd=4915850, uMsg=287, wParam=-65536, lParam=0
+Message: hWnd=4915850, uMsg=177, wParam=0, lParam=-1
+Message: hWnd=4915850, uMsg=8, wParam=5505452, lParam=0
+Message: hWnd=4915850, uMsg=4110, wParam=10, lParam=0
+Message: hWnd=4915850, uMsg=15, wParam=0, lParam=0
+Message: hWnd=7144074, uMsg= &H21, wParam=6554200, lParam=33816577
+Message: hWnd=7144074, uMsg= &H204, wParam=2, lParam=327738
+Message: hWnd=7144074, uMsg= &H205, wParam=0, lParam=327738
+Message: hWnd=7144074, uMsg= &H7B, wParam=7144074, lParam=5243211
+Message: hWnd=7144074, uMsg= &H7, wParam=8978790, lParam=0
+Message: hWnd=7144074, uMsg= &H215, wParam=0, lParam=7144074
+Message: hWnd=7144074, uMsg= &H100E, wParam=3, lParam=0
+Message: hWnd=7144074, uMsg= &H11F, wParam=-2139094863, lParam=28443599
+Message: hWnd=7144074, uMsg= &H11F, wParam=-2139094863, lParam=28443599
+Message: hWnd=7144074, uMsg= &H215, wParam=0, lParam=0
+Message: hWnd=7144074, uMsg= &H11F, wParam=-65536, lParam=0
+Message: hWnd=7144074, uMsg= &HB1, wParam=0, lParam=-1
+Message: hWnd=7144074, uMsg= &H8, wParam=8978790, lParam=0
+Message: hWnd=7144074, uMsg= &H100E, wParam=10, lParam=0
+Message: hWnd=7144074, uMsg= &HF, wParam=0, lParam=0
+Message: hWnd=6554200, uMsg= &HA1, wParam=5, lParam=3342435
+Message: hWnd=6554200, uMsg= &H112, wParam=61589, lParam=3342435
+Message: hWnd=6554200, uMsg= &H211, wParam=0, lParam=0
+Message: hWnd=6554200, uMsg= &H116, wParam=24445791, lParam=0
+Message: hWnd=6554200, uMsg= &H11F, wParam=-2139095039, lParam=24445791
+Message: hWnd=6554200, uMsg= &H215, wParam=0, lParam=0
+Message: hWnd=6554200, uMsg= &H11F, wParam=-65536, lParam=0
+Message: hWnd=6554200, uMsg= &H212, wParam=0, lParam=0
+Message: hWnd=6554200, uMsg= &H111, wParam=1, lParam=0
+Message: hWnd=6554200, uMsg= &HD, wParam=510, lParam=1240068
+Message: hWnd=6554200, uMsg= &H7C, wParam=-16, lParam=1242796
+Message: hWnd=6554200, uMsg= &H7D, wParam=-16, lParam=1242796
+Message: hWnd=6554200, uMsg= &H7C, wParam=-20, lParam=1242796
+Message: hWnd=6554200, uMsg= &H7D, wParam=-20, lParam=1242796
+Message: hWnd=6554200, uMsg= &H21, wParam=6554200, lParam=33619969
+Message: hWnd=6554200, uMsg= &H111, wParam=17, lParam=8978790
+hWnd=2949602, uMsg= WM_NCACTIVATE, wParam=0, lParam=0
+hWnd=2949602, uMsg= WM_GETTEXT, wParam=510, lParam=1241404
+hWnd=2949602, uMsg= WM_ACTIVATE, wParam=0, lParam=0
+hWnd=2949602, uMsg= WM_ACTIVATEAPP, wParam=0, lParam=1616
+hWnd=2949602, uMsg= WM_MOUSEACTIVATE, wParam=2949602, lParam=33619970
+hWnd=2949602, uMsg= WM_NCLBUTTONDOWN, wParam=2, lParam=1311036
+hWnd=2949602, uMsg= WM_WINDOWPOSCHANGING, wParam=0, lParam=1243552
+hWnd=2949602, uMsg= WM_NCPAINT, wParam=1, lParam=0
+hWnd=2949602, uMsg= WM_GETTEXT, wParam=510, lParam=1240296
+hWnd=2949602, uMsg= WM_ERASEBKGND, wParam=-620690911, lParam=0
+hWnd=2949602, uMsg= WM_WINDOWPOSCHANGED, wParam=0, lParam=1243552
+hWnd=2949602, uMsg= WM_ACTIVATEAPP, wParam=1, lParam=0
+hWnd=2949602, uMsg= WM_NCACTIVATE, wParam=1, lParam=0
+hWnd=2949602, uMsg= WM_ACTIVATE, wParam=2, lParam=0
+hWnd=2949602, uMsg= WM_SYSCOMMAND, wParam=61458, lParam=1311036
+hWnd=2949602, uMsg= &H215, wParam=0, lParam=0
+hWnd=2949602, uMsg= WM_WINDOWPOSCHANGING, wParam=0, lParam=1242392
+hWnd=2949602, uMsg= &H105A, wParam=0, lParam=0
+hWnd=2949602, uMsg= WM_MOUSEACTIVATE, wParam=2949602, lParam=33619969
+hWnd=2949602, uMsg= WM_COMMAND, wParam=7, lParam=1180032
